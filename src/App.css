@@ -2,6 +2,7 @@
   padding: 300px;
   display: flex;
   list-style-type: none;
+  background-color: rgb(243, 202, 184);
 }
 .App > div {
   margin-right: 50px;
