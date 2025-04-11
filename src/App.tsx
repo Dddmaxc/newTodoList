@@ -1,6 +1,6 @@
 import "./App.css";
 import { TaskType, TodoList } from "./TodoList";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { v1 } from "uuid";
 
 export type FilterValueType = "all" | "active" | "completed";
@@ -28,6 +28,14 @@ function App() {
     setTasks([...tasks, newTask]);
   };
 
+  const changeStatus = (taskId: string, isDone: boolean) => {
+    let task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      task.isDone = isDone;
+    }
+    setTasks([...tasks]);
+  };
+
   const changeFilter = (value: FilterValueType) => {
     setFilter(value);
   };
@@ -48,6 +56,7 @@ function App() {
         removeTask={removeTask}
         changeFilter={changeFilter}
         addTask={addTask}
+        changeStatus={changeStatus}
       />
     </div>
   );
