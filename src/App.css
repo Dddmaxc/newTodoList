@@ -8,10 +8,18 @@
   margin-right: 50px;
 }
 
-error {
-  border: red 1px solid;
+.error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
 }
 
 .error-message {
   color: red;
+  font-size: 12px;
+}
+.active-filter {
+  background-color: aqua;
+}
+.is-done {
+  opacity: 0.5;
 }
