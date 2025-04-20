@@ -1,8 +1,9 @@
 .App {
-  padding: 300px;
+  padding: 100px;
   display: flex;
   list-style-type: none;
   background-color: rgb(243, 202, 184);
+  height: 100vh;
 }
 .App > div {
   margin-right: 50px;
