@@ -1,4 +1,6 @@
+import { TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
+import s from "./EditableSpun.module.css"
 
 type EditableSpunTypeProps = {
   title: string;
@@ -18,12 +20,14 @@ export function EditableSpun({ title, onChange }: EditableSpunTypeProps) {
     setTitleEdit(e.currentTarget.value);
 
   return editMode ? (
-    <input
+    <TextField
       onBlur={ActivateViewMode}
       value={titleEdit}
       type="text"
       autoFocus
       onChange={onChangeHandler}
+      variant={"filled"}
+      color={"secondary"}
     />
   ) : (
     <span onDoubleClick={ActivateEditMode}>{title}</span>

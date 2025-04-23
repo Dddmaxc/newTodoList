@@ -1,9 +1,30 @@
+body{
+  background: #17181d;
+}
 .App {
-  padding: 100px;
-  display: flex;
-  list-style-type: none;
-  background-color: rgb(243, 202, 184);
-  height: 100vh;
+  background: #17181d;
+  background-image: url("/public/e.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  color: rgb(255, 255, 255);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+}
+.todoListFon {
+  box-shadow: rgba(104, 58, 183, 0.831)
+  0px 30px 60px -12px inset,
+  rgba(103, 58, 183, 0.3)
+  0px 18px 36px -18px inset !important;
+
+  background-color: #ffffff !important;
+  color: rgb(0, 0, 0) !important;
+  border-radius: 15px !important;
+  padding: 15px;
 }
 .App > div {
   margin-right: 50px;

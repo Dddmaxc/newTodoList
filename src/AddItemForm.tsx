@@ -1,3 +1,5 @@
+import { ControlPoint } from "@mui/icons-material";
+import { Button, IconButton, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 
 export type AddItemFormPropsType = {
@@ -25,21 +27,30 @@ export function AddItemForm({ addItem }: AddItemFormPropsType) {
       setNewTaskTitle("");
       setError(null);
     } else {
-      setError("title is required");
+      setError("Title is required");
     }
   };
 
   return (
     <>
       <div>
-        <input
+        <TextField
+          variant={"filled"}
+          label={"Type value"}
+          color={"success"}
           value={newTaskTitle}
           onChange={onNewTitleOnChange}
           onKeyDown={onKeyDownHandler}
-          className={error ? "error" : ""}
+          error={!!error}
+          helperText={error}
+          style={{backgroundColor: "white"}}
         />
-        <button onClick={addTaskHandler}>+</button>
-        {error && <div className="error-message">{error}</div>}
+        <IconButton
+          onClick={addTaskHandler}
+          color={"success"}
+        >
+          <ControlPoint/>
+        </IconButton>
       </div>
     </>
   );
