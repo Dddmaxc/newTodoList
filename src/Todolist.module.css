@@ -1,6 +1,9 @@
-.containrt{
-    background: transparent
+.containrt {
+  background: transparent;
 }
-.containerButton{
-    margin-top: 10px;
+.containerButton {
+  margin-top: 10px;
+}
+.button {
+  transition: all 0.2s ease !important;
 }

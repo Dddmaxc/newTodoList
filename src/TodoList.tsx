@@ -3,9 +3,9 @@ import { FilterValueType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpun } from "./EditableSpun";
 import { Button, Checkbox, IconButton } from "@mui/material";
-import { Delete, Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import s from "./Todolist.module.css";
-import { deepPurple, pink } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
 
 export type TaskType = {
   id: string;
@@ -32,6 +32,7 @@ export type PropsType = {
 };
 
 export function TodoList(props: PropsType) {
+  
   const onAllClickHandler = () => props.changeFilter("all", props.id);
   const onActiveClickHandler = () => props.changeFilter("active", props.id);
   const onCompletedClickHandler = () =>
@@ -100,6 +101,7 @@ export function TodoList(props: PropsType) {
           variant={props.filter === "all" ? "contained" : "text"}
           onClick={onAllClickHandler}
           color={"secondary"}
+          className={s.button}
         >
           All
         </Button>
@@ -107,6 +109,7 @@ export function TodoList(props: PropsType) {
           variant={props.filter === "active" ? "contained" : "text"}
           onClick={onActiveClickHandler}
           color={"secondary"}
+          className={s.button}
         >
           Active
         </Button>
@@ -114,6 +117,7 @@ export function TodoList(props: PropsType) {
           variant={props.filter === "completed" ? "contained" : "text"}
           onClick={onCompletedClickHandler}
           color={"secondary"}
+          className={s.button}
         >
           Completed
         </Button>

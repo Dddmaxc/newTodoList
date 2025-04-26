@@ -19,8 +19,16 @@ export function EditableSpun({ title, onChange }: EditableSpunTypeProps) {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
     setTitleEdit(e.currentTarget.value);
 
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") { // нажатия через Enter + 
+      onChange(titleEdit) 
+      setEditMode(false); //  + выходим с EditMode
+    }
+  };
+
   return editMode ? (
     <TextField
+      onKeyDown={onKeyDownHandler}
       onBlur={ActivateViewMode}
       value={titleEdit}
       type="text"
