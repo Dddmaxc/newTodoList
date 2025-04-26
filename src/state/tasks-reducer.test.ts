@@ -1,1 +1,1 @@
-test("task should remove", () => {});
+export {};
