@@ -1,5 +1,6 @@
 import { TaskStateType } from "../App";
-import { TaskType } from "../TodoList";
+import { v1 } from "uuid";
+import { AddTodoListActionType, RemoveTodoListActionType } from "./todoList-reducer";
 
 type RemoveTaskActionType = {
   type: "REMOVE-TASK";
@@ -10,7 +11,7 @@ type RemoveTaskActionType = {
 type AddTaskActionType = {
   type: "ADD-TASK";
   todolistId: string;
-  task: TaskType;
+  title: string;
 };
 
 type ChangeStatusTaskActionType = {
@@ -20,10 +21,20 @@ type ChangeStatusTaskActionType = {
   isDone: boolean;
 };
 
+type ChangeTitleTaskActioneType = {
+  type: "CHANGE-TITLE-TASK";
+  todolistId: string;
+  taskId: string;
+  newTitle: string;
+};
+
 export type ActionType =
   | RemoveTaskActionType
   | AddTaskActionType
-  | ChangeStatusTaskActionType;
+  | ChangeStatusTaskActionType
+  | ChangeTitleTaskActioneType
+  | AddTodoListActionType
+  | RemoveTodoListActionType
 
 export const tasksReducer = (
   state: TaskStateType,
@@ -40,8 +51,9 @@ export const tasksReducer = (
     }
     case "ADD-TASK": {
       const stateCopy = { ...state };
-      const task = stateCopy[action.todolistId];
-      const newTasks = [...task, action.task];
+      const tasks = stateCopy[action.todolistId];
+      const newTask = { id: v1(), title: action.title, isDone: false };
+      const newTasks = [newTask, ...tasks];
       stateCopy[action.todolistId] = newTasks;
 
       return stateCopy;
@@ -49,19 +61,39 @@ export const tasksReducer = (
     case "CHANGE-STATUS-TASK": {
       const stateCopy = { ...state };
       const task = stateCopy[action.todolistId];
-
       stateCopy[action.todolistId] = task.map((t) =>
         t.id === action.taskId ? { ...t, isDone: action.isDone } : t
       );
 
       return stateCopy;
     }
+
+    case "CHANGE-TITLE-TASK": {
+      const tasks = state[action.todolistId];
+      const newTasks = tasks.map((t) =>
+        t.id === action.taskId ? { ...t, title: action.newTitle } : t
+      );
+      return {
+        ...state,
+        [action.todolistId]: newTasks,
+      };
+    }
+    case "ADD-TODOLIST": {
+      const stateCopy = { ...state };
+      stateCopy[action.todoListId] = [];
+      return stateCopy;  
+    }
+    case "REMOVE-TODOLIST": {
+      const stateCopy = {...state}
+     delete stateCopy[action.todolistId]  
+       return stateCopy
+    }
     default:
       throw new Error(`Uh, Error`);
   }
 };
 
-export const RemoveTaskAC = (
+export const removeTaskAC = (
   taskId: string,
   todolistId: string
 ): RemoveTaskActionType => ({
@@ -70,16 +102,16 @@ export const RemoveTaskAC = (
   todolistId,
 });
 
-export const AddTaskAC = (
+export const addTaskAC = (
   todolistId: string,
-  task: TaskType
+  title: string
 ): AddTaskActionType => ({
   type: "ADD-TASK",
   todolistId,
-  task,
+  title,
 });
 
-export const ChangeStatusTaskAC = (
+export const changeStatusTaskAC = (
   todolistId: string,
   taskId: string,
   isDone: boolean
@@ -88,4 +120,15 @@ export const ChangeStatusTaskAC = (
   todolistId,
   taskId,
   isDone,
+});
+
+export const changeTitleTaskAC = (
+  todolistId: string,
+  taskId: string,
+  newTitle: string
+): ChangeTitleTaskActioneType => ({
+  type: "CHANGE-TITLE-TASK",
+  todolistId,
+  taskId,
+  newTitle,
 });
