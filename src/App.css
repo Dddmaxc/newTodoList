@@ -1,4 +1,4 @@
-body{
+body {
   background: #17181d;
 }
 .App {
@@ -9,20 +9,18 @@ body{
   background-position: center center;
   background-attachment: fixed;
   color: rgb(255, 255, 255);
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
   letter-spacing: 0.02857em;
 }
 .todoListFon {
-  box-shadow: rgba(104, 58, 183, 0.831)
-  0px 30px 60px -12px inset,
-  rgba(103, 58, 183, 0.3)
-  0px 18px 36px -18px inset !important;
+  box-shadow: rgba(245, 0, 87, 0.831) 0px 30px 60px -12px inset,
+    rgba(245, 0, 87, 0.3) 0px 18px 36px -18px inset !important;
 
-  background-color: #ffffff !important;
-  color: rgb(0, 0, 0) !important;
+  background-color: #312c2cb9 !important;
+  color: rgb(255, 255, 255) !important;
   border-radius: 15px !important;
   padding: 15px;
 }
@@ -44,4 +42,7 @@ body{
 }
 .is-done {
   opacity: 0.5;
+}
+.appBar {
+  box-shadow: rgba(245, 0, 87, 0.5) 0px 8px 24px;
 }

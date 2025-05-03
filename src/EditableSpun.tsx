@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-import s from "./EditableSpun.module.css"
+import { ChangeEvent, useCallback, useState } from "react";
+import s from "./EditableSpun.module.css";
+import React from "react";
 
 type EditableSpunTypeProps = {
   title: string;
@@ -8,36 +9,49 @@ type EditableSpunTypeProps = {
 };
 
 export function EditableSpun({ title, onChange }: EditableSpunTypeProps) {
+  console.log("EditableSpun");
+debugger
   const [editMode, setEditMode] = useState<boolean>(false);
   const [titleEdit, setTitleEdit] = useState<string>(title);
 
-  const ActivateEditMode = () => setEditMode(!editMode);
-  const ActivateViewMode = () => {
-    setEditMode(!editMode);
-    onChange(titleEdit)
-  };
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
-    setTitleEdit(e.currentTarget.value);
+  const ActivateEditMode = useCallback(() => setEditMode((prew) => !prew), []);
+  const ActivateViewMode = useCallback(() => {
+    setEditMode(false);
+    onChange(titleEdit);
+  }, [onChange, titleEdit]);
 
-  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") { // нажатия через Enter + 
-      onChange(titleEdit) 
-      setEditMode(false); //  + выходим с EditMode
-    }
-  };
+  const onChangeHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setTitleEdit(e.currentTarget.value),
+    [setTitleEdit]
+  );
+
+  const onKeyDownHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        // нажатия через Enter +
+        onChange(titleEdit);
+        setEditMode(false); //  + выходим с EditMode
+      }
+    },
+    [onChange, titleEdit]
+  );
 
   return editMode ? (
-    <TextField
-      onKeyDown={onKeyDownHandler}
-      onBlur={ActivateViewMode}
-      value={titleEdit}
-      type="text"
-      autoFocus
-      onChange={onChangeHandler}
-      variant={"filled"}
-      color={"secondary"}
-    />
+    <div className={s.textField}>
+      <TextField
+        onKeyDown={onKeyDownHandler}
+        onBlur={ActivateViewMode}
+        value={titleEdit}
+        type="text"
+        autoFocus
+        onChange={onChangeHandler}
+        variant={"filled"}
+        color={"secondary"}
+      />
+    </div>
   ) : (
     <span onDoubleClick={ActivateEditMode}>{title}</span>
   );
 }
+
+export const EditableSpunMemo = React.memo(EditableSpun);

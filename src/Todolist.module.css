@@ -4,6 +4,17 @@
 .containerButton {
   margin-top: 10px;
 }
+
+
+h3 input[type="text"] {
+  color: rgb(255, 255, 255) !important;
+}
 .button {
   transition: all 0.5s ease !important;
+}
+.containerTasks {
+  box-sizing: border-box;
+}
+.containerTasks input[type="text"] {
+  color: rgb(255, 255, 255) !important;
 }

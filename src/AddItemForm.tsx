@@ -1,26 +1,35 @@
 import { ControlPoint } from "@mui/icons-material";
-import { Button, IconButton, TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
+import React, { useCallback } from "react";
 import { ChangeEvent, useState } from "react";
 
 export type AddItemFormPropsType = {
-  addItem: (titile: string) => void;
+  addItem: (title: string) => void;
 };
 
-export function AddItemForm({ addItem }: AddItemFormPropsType) {
+export const AddItemForm = ({ addItem }: AddItemFormPropsType) => {
+  console.log("AddItemForm");
   let [newTaskTitle, setNewTaskTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
-  const onNewTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTaskTitle(e.currentTarget.value);
-  };
-  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
-    if (e.key === "Enter") {
-      addTaskHandler();
-    }
-  };
+  const onNewTitleOnChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setNewTaskTitle(e.currentTarget.value);
+    },
+    []
+  );
 
-  const addTaskHandler = () => {
+  const onKeyDownHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      setError(null);
+      if (e.key === "Enter") {
+        addTaskHandler();
+      }
+    },
+    [newTaskTitle]
+  );
+
+  const addTaskHandler = useCallback(() => {
     const trimmedTitle = newTaskTitle.trim();
     if (trimmedTitle) {
       addItem(trimmedTitle);
@@ -29,7 +38,7 @@ export function AddItemForm({ addItem }: AddItemFormPropsType) {
     } else {
       setError("Title is required");
     }
-  };
+  }, [addItem, newTaskTitle]);
 
   return (
     <>
@@ -43,15 +52,14 @@ export function AddItemForm({ addItem }: AddItemFormPropsType) {
           onKeyDown={onKeyDownHandler}
           error={!!error}
           helperText={error}
-          style={{backgroundColor: "white"}}
+          sx={{ backgroundColor: "white" }}
         />
-        <IconButton
-          onClick={addTaskHandler}
-          color={"success"}
-        >
-          <ControlPoint/>
+        <IconButton onClick={addTaskHandler} color={"success"}>
+          <ControlPoint />
         </IconButton>
       </div>
     </>
   );
-}
+};
+
+export const AddItemFormMemo = React.memo(AddItemForm);

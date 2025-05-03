@@ -1,3 +1,4 @@
-.TextField {
-    color: white;
+input[type="text"] {
+  color: rgb(0, 0, 0);
 }
+
