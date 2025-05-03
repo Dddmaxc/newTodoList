@@ -46,9 +46,9 @@ function App() {
   };
 
   const changeStatus = (
+    todolistId: string,
     taskId: string,
-    isDone: boolean,
-    todolistId: string
+    isDone: boolean
   ) => {
     let tasks = tasksObj[todolistId];
     let task = tasks.find((t) => t.id === taskId);
@@ -129,7 +129,8 @@ function App() {
     });
   };
 
-  let shadow = "0 1px 1px rgb(255, 255, 255)0 2px 2px rgba(244, 244, 244, 0.987)0 4px 4px rgba(255, 255, 255, 0.984)0 8px 8px rgba(255, 255, 255, 0.977)"
+  let shadow =
+    "0 1px 1px rgb(255, 255, 255)0 2px 2px rgba(244, 244, 244, 0.987)0 4px 4px rgba(255, 255, 255, 0.984)0 8px 8px rgba(255, 255, 255, 0.977)";
 
   return (
     <div className="App">
@@ -160,22 +161,15 @@ function App() {
               );
             }
             return (
-              <Grid >
-                <Paper
-                className="todoListFon"
-                >
+              <Grid>
+                <Paper className="todoListFon">
                   <TodoList
                     key={t.id}
                     id={t.id}
                     title={t.title}
-                    tasks={tasksForTodoList}
-                    removeTask={removeTask}
                     changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeStatus={changeStatus}
                     filter={t.filter}
                     removeTodoList={removeTodoList}
-                    changeTaskTitle={changeTaskTitle}
                     changeTodoListTitle={changeTodoListTitle}
                   />
                 </Paper>

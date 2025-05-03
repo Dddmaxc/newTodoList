@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { FilterValueType, TodolistType } from "../App";
+import { FilterValueType, TodolistType } from "../AppWithRedux";
 import {
   addTodoListAC,
   changeTodoListFilterAC,
@@ -36,8 +36,8 @@ test("correct todolist should be added", () => {
   const endState = todolistReducer(startState, addTodoListAC(newTodolistTitle));
 
   expect(endState.length).toBe(3);
-  expect(endState[2].title).toBe(newTodolistTitle);
-  expect(endState[2].filter).toBe("all");
+  expect(endState[0].title).toBe(newTodolistTitle);
+  expect(endState[0].filter).toBe("all");
 });
 
 test("correct todolist should change its name", () => {
@@ -77,7 +77,6 @@ test("correct filter of todolist should be change", () => {
   expect(endState[0].filter).toBe("all");
   expect(endState[1].filter).toBe(newFilter);
 });
-
 
 // type Student = {
 //   id: number

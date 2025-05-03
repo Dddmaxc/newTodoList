@@ -1,14 +1,17 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme";
+import AppWithRedux from "./AppWithRedux";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
-    <App />
+    <Provider store={store}>
+      <AppWithRedux />
+    </Provider>
   </ThemeProvider>
 );
 

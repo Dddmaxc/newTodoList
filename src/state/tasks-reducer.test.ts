@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { TaskStateType } from "../App";
+import { TaskStateType } from "../AppWithRedux";
 import {
   addTaskAC,
   changeStatusTaskAC,
@@ -126,17 +126,15 @@ test("property with new array shuold be added when new todolis is added", () => 
   };
 
   const action = addTodoListAC("new todoList");
-  const endState = tasksReducer(startState, action)
+  const endState = tasksReducer(startState, action);
 
-
-const  keys = Object.keys(endState)
-const  newKey = keys.find(k => k != "todolistId1" && k != "todolistId2")
-if(!newKey){
-  throw Error("new key should be added")
-}
-expect(keys.length).toBe(3)
-expect(endState[newKey]).toEqual([])
-
+  const keys = Object.keys(endState);
+  const newKey = keys.find((k) => k != "todolistId1" && k != "todolistId2");
+  if (!newKey) {
+    throw Error("new key should be added");
+  }
+  expect(keys.length).toBe(3);
+  expect(endState[newKey]).toEqual([]);
 });
 
 test("property with todolistId should be deleted", () => {
@@ -156,12 +154,10 @@ test("property with todolistId should be deleted", () => {
   };
 
   const action = removeTodoListAC("todolistId2");
-  const endState = tasksReducer(startState, action)
+  const endState = tasksReducer(startState, action);
 
+  const keys = Object.keys(endState);
 
-const  keys = Object.keys(endState)
-
-expect(keys.length).toBe(1)
-expect(endState["todolistId2"]).toBeUndefined
-
+  expect(keys.length).toBe(1);
+  expect(endState["todolistId2"]).toBeUndefined;
 });

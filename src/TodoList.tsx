@@ -1,11 +1,19 @@
 import { ChangeEvent } from "react";
-import { FilterValueType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpun } from "./EditableSpun";
 import { Button, Checkbox, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import s from "./Todolist.module.css";
-import { deepPurple } from '@mui/material/colors';
+import { deepPurple } from "@mui/material/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootState } from "./state/store";
+import {
+  addTaskAC,
+  changeStatusTaskAC,
+  changeTitleTaskAC,
+  removeTaskAC,
+} from "./state/tasks-reducer";
+import { FilterValueType } from "./AppWithRedux";
 
 export type TaskType = {
   id: string;
@@ -15,16 +23,7 @@ export type TaskType = {
 
 export type PropsType = {
   title: string;
-  tasks: Array<TaskType>;
-  removeTask: (id: string, todolistId: string) => void;
   changeFilter: (value: FilterValueType, idTodolist: string) => void;
-  addTask: (title: string, todolistId: string) => void;
-  changeStatus: (taskId: string, isDone: boolean, todolistId: string) => void;
-  changeTaskTitle: (
-    taskId: string,
-    newTitle: string,
-    todolistId: string
-  ) => void;
   changeTodoListTitle: (newTitle: string, todolistId: string) => void;
   removeTodoList: (todolistId: string) => void;
   filter: FilterValueType;
@@ -32,54 +31,77 @@ export type PropsType = {
 };
 
 export function TodoList(props: PropsType) {
-  
+  const dispatch = useDispatch();
+
+  const tasks = useSelector<AppRootState, TaskType[]>(
+    (state) => state.tasks[props.id]
+  );
+
   const onAllClickHandler = () => props.changeFilter("all", props.id);
   const onActiveClickHandler = () => props.changeFilter("active", props.id);
   const onCompletedClickHandler = () =>
     props.changeFilter("completed", props.id);
+
   const removeTodoList = () => {
     props.removeTodoList(props.id);
   };
 
   const AddTask = (title: string) => {
-    props.addTask(title, props.id);
+    dispatch(addTaskAC(props.id, title));
   };
 
   const changeTodoListTitle = (newTitle: string) => {
     props.changeTodoListTitle(newTitle, props.id);
   };
 
+  let tasksForTodoList = tasks;
+            if (props.filter === "completed") {
+              tasksForTodoList = tasksForTodoList.filter(
+                (t) => t.isDone === true
+              );
+            }
+            if (props.filter === "active") {
+              tasksForTodoList = tasksForTodoList.filter(
+                (t) => t.isDone === false
+              );
+            }
+
   return (
     <div className={s.containrt}>
       <h3>
         <EditableSpun title={props.title} onChange={changeTodoListTitle} />
-        <IconButton onClick={removeTodoList} aria-label={"delete"} color={"info"}>
+        <IconButton
+          onClick={removeTodoList}
+          aria-label={"delete"}
+          color={"info"}
+        >
           <Delete />
         </IconButton>
       </h3>
       <AddItemForm addItem={AddTask} />
       <div>
-        {props.tasks.map((t) => {
+        {tasksForTodoList.map((t) => {
           const onRemoveHandler = () => {
-            props.removeTask(t.id, props.id);
+            dispatch(removeTaskAC(t.id, props.id));
           };
 
           const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            props.changeStatus(t.id, e.currentTarget.checked, props.id);
+            let newIsDoneValue = e.currentTarget.checked;
+            dispatch(changeStatusTaskAC(props.id, t.id, newIsDoneValue));
           };
           const onChangeTitleHandler = (newValue: string) => {
-            props.changeTaskTitle(t.id, newValue, props.id);
+            dispatch(changeTitleTaskAC(props.id, t.id, newValue));
           };
 
           return (
-            <div className={t.isDone ? "is-done" : ""}>
+            <div key={t.id} className={t.isDone ? "is-done" : ""}>
               <Checkbox
-               sx={{
-                color: deepPurple[500],
-                '&.Mui-checked': {
+                sx={{
                   color: deepPurple[500],
-                },
-              }}
+                  "&.Mui-checked": {
+                    color: deepPurple[500],
+                  },
+                }}
                 color={"secondary"}
                 onChange={onChangeStatusHandler}
                 checked={t.isDone}

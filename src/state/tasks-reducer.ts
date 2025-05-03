@@ -1,6 +1,9 @@
-import { TaskStateType } from "../App";
+import { TaskStateType } from "../AppWithRedux";
 import { v1 } from "uuid";
-import { AddTodoListActionType, RemoveTodoListActionType } from "./todoList-reducer";
+import {
+  AddTodoListActionType,
+  RemoveTodoListActionType,
+} from "./todoList-reducer";
 
 type RemoveTaskActionType = {
   type: "REMOVE-TASK";
@@ -34,10 +37,12 @@ export type ActionType =
   | ChangeStatusTaskActionType
   | ChangeTitleTaskActioneType
   | AddTodoListActionType
-  | RemoveTodoListActionType
+  | RemoveTodoListActionType;
+
+const initialState: TaskStateType = {};
 
 export const tasksReducer = (
-  state: TaskStateType,
+  state: TaskStateType = initialState,
   action: ActionType
 ): TaskStateType => {
   switch (action.type) {
@@ -73,6 +78,7 @@ export const tasksReducer = (
       const newTasks = tasks.map((t) =>
         t.id === action.taskId ? { ...t, title: action.newTitle } : t
       );
+
       return {
         ...state,
         [action.todolistId]: newTasks,
@@ -81,15 +87,15 @@ export const tasksReducer = (
     case "ADD-TODOLIST": {
       const stateCopy = { ...state };
       stateCopy[action.todoListId] = [];
-      return stateCopy;  
+      return stateCopy;
     }
     case "REMOVE-TODOLIST": {
-      const stateCopy = {...state}
-     delete stateCopy[action.todolistId]  
-       return stateCopy
+      const stateCopy = { ...state };
+      delete stateCopy[action.todolistId];
+      return stateCopy;
     }
     default:
-      throw new Error(`Uh, Error`);
+      return state;
   }
 };
 

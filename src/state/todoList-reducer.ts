@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { FilterValueType, TodolistType } from "../App";
+import { FilterValueType, TodolistType } from "../AppWithRedux";
 
 // Типы экшенов
 export type RemoveTodoListActionType = {
@@ -32,9 +32,13 @@ export type ActionType =
   | ChangeTodoListTitleActionType
   | ChangeTodoListFilterActionType;
 
+
+
+const initialState: Array<TodolistType> = [];
+
 // Редьюсер
 export const todolistReducer = (
-  state: Array<TodolistType>,
+  state: Array<TodolistType> = initialState,
   action: ActionType
 ): Array<TodolistType> => {
   switch (action.type) {
@@ -43,12 +47,12 @@ export const todolistReducer = (
 
     case "ADD-TODOLIST":
       return [
-        ...state,
         {
           id: action.todoListId,
           title: action.title,
           filter: "all",
         },
+        ...state,
       ];
 
     case "CHANGE-TODOLIST-TITLE":
@@ -66,7 +70,7 @@ export const todolistReducer = (
       );
 
     default:
-      throw new Error(`Unhandled action type`);
+      return state;
   }
 };
 
@@ -78,12 +82,10 @@ export const removeTodoListAC = (
   todolistId,
 });
 
-export const addTodoListAC = (
-  title: string,
-): AddTodoListActionType => ({
+export const addTodoListAC = (title: string): AddTodoListActionType => ({
   type: "ADD-TODOLIST",
   title,
-  todoListId: v1()
+  todoListId: v1(),
 });
 
 export const changeTodoListTitleAC = (
