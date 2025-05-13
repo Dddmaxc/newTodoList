@@ -24,9 +24,6 @@ body {
   border-radius: 15px !important;
   padding: 15px;
 }
-.App > div {
-  margin-right: 50px;
-}
 
 .error {
   border: 2px solid red;

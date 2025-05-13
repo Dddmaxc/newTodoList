@@ -5,13 +5,15 @@ import {
   Grid,
   IconButton,
   Paper,
+  Switch,
+  Theme,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { AddItemFormMemo } from "./AddItemForm";
 import "./App.css";
 import { TaskType, TodoList } from "./TodoList";
-import { Menu } from "@mui/icons-material";
+import { Brightness6Outlined, Menu } from "@mui/icons-material";
 import {
   addTodoListAC,
   changeTodoListFilterAC,
@@ -21,7 +23,10 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AppRootState } from "./state/store";
-import { useCallback } from "react";
+import { use, useCallback, useState } from "react";
+import { todolistGridContainer, typographyStyle } from "./todolist.styles";
+import { MenuButton } from "./MenuButton";
+import { useTheme } from "@mui/material/styles";
 
 export type FilterValueType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -34,9 +39,11 @@ export type TaskStateType = {
 };
 
 function AppWithRedux() {
+  const [switchTheme, setSwitchTheme] = useState<boolean>(false)
   console.log("App");
 
   const dispatch = useDispatch();
+  const theme = useTheme<Theme>()
 
   const todoLists = useSelector<AppRootState, TodolistType[]>(
     (state) => state.todoList
@@ -74,19 +81,37 @@ function AppWithRedux() {
     [dispatch]
   );
 
+  const switchThemeFunction = () => {
+         setSwitchTheme(prev => !prev)
+  }
+
+  const mainColor = theme.palette.extra.extra7
+  const mainColorBlack = theme.palette.extra.extra3
+  const mainColorWhite = theme.palette.extra.extra8
+
   return (
     <div className="App">
-      <AppBar position="static" color={"secondary"}>
+      <AppBar position="static" color={!switchTheme ? "secondary" : "default"}>
         <Toolbar className="appBar">
           <IconButton edge={"start"} color={"inherit"} aria-label={"menu"}>
             <Menu />
           </IconButton>
-          <Typography variant={"h6"}>News</Typography>
-          <Button color={"inherit"}></Button>
+          <Typography variant="h6" component="div" sx={typographyStyle}>
+            News
+          </Typography>
+          <div style={{display: "flex", gap: "10px"}}>
+            <MenuButton color={switchTheme ? "primary" : "warning"} background={!switchTheme ? mainColor : "#00BCD4"}>LogOut</MenuButton>
+            <MenuButton  background={!switchTheme ? mainColor : "#00BCD4"}>LogIn</MenuButton>
+            <MenuButton  background={!switchTheme ? mainColor : "#00BCD4"}>FAQ</MenuButton>
+            <Switch color={switchTheme ? "secondary" : "info"} onClick={switchThemeFunction}></Switch>
+          </div>
+
+          {/* <Brightness6Outlined >
+          </Brightness6Outlined> */}
         </Toolbar>
       </AppBar>
       <Container fixed>
-        <Grid container style={{ padding: "20px" }}>
+        <Grid container sx={todolistGridContainer}>
           <AddItemFormMemo addItem={addTodoList} />
         </Grid>
         <Grid container spacing={10}>
