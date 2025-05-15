@@ -1,7 +1,5 @@
 import { v1 } from "uuid";
-import { FilterValueType, TodolistType } from "../AppWithRedux";
-
-
+import { FilterValueType, TodolistType } from "../app/AppWithRedux";
 
 // Типы экшенов (должны идти после Action Creators)
 export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>;
@@ -20,9 +18,10 @@ export type ActionType =
   | ChangeTodoListTitleActionType
   | ChangeTodoListFilterActionType;
 
-// Редьюсер
+// изначальные данные
 const initialState: Array<TodolistType> = [];
 
+// Редьюсер
 export const todolistReducer = (
   state: Array<TodolistType> = initialState,
   action: ActionType
@@ -31,7 +30,7 @@ export const todolistReducer = (
     case "REMOVE-TODOLIST": {
       return state.filter((todolist) => todolist.id !== action.todolistId);
     }
-    case "ADD-TODOLIST":{
+    case "ADD-TODOLIST": {
       const { todoListId, title } = action;
       return [
         {
@@ -40,23 +39,22 @@ export const todolistReducer = (
           filter: "all",
         },
         ...state,
-      ];}
+      ];
+    }
 
-    case "CHANGE-TODOLIST-TITLE":{
-      const {todolistId, title} = action
+    case "CHANGE-TODOLIST-TITLE": {
+      const { todolistId, title } = action;
       return state.map((todolist) =>
-        todolist.id === todolistId
-          ? { ...todolist, title }
-          : todolist
-      );}
+        todolist.id === todolistId ? { ...todolist, title } : todolist
+      );
+    }
 
-    case "CHANGE-TODOLIST-FILTER":{
-      const {todolistId, filter} = action
+    case "CHANGE-TODOLIST-FILTER": {
+      const { todolistId, filter } = action;
       return state.map((todolist) =>
-        todolist.id === todolistId
-          ? { ...todolist, filter }
-          : todolist
-      );}
+        todolist.id === todolistId ? { ...todolist, filter } : todolist
+      );
+    }
 
     default:
       return state;

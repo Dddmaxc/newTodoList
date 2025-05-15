@@ -2,7 +2,7 @@ import { ControlPoint } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
 import React, { useCallback } from "react";
 import { ChangeEvent, useState } from "react";
-import { addItemFormTextField } from "./todolist.styles";
+import { addItemFormTextField } from "../todolist.styles";
 
 export type AddItemFormPropsType = {
   addItem: (title: string) => void;

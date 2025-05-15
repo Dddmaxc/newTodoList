@@ -10,23 +10,26 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { AddItemFormMemo } from "./AddItemForm";
+import { AddItemFormMemo } from "../model/AddItemForm";
 import "./App.css";
-import { TaskType, TodoList } from "./TodoList";
+import { TaskType, TodoList } from "../TodoList";
 import { Brightness6Outlined, Menu } from "@mui/icons-material";
 import {
   addTodoListAC,
   changeTodoListFilterAC,
   changeTodoListTitleAC,
   removeTodoListAC,
-} from "./state/todoList-reducer";
+} from "../model/todoList-reducer";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { AppRootState } from "./state/store";
+import { RootState } from "../app/store";
 import { use, useCallback, useState } from "react";
-import { todolistGridContainer, typographyStyle } from "./todolist.styles";
-import { MenuButton } from "./MenuButton";
+import { todolistGridContainer, typographyStyle } from "../todolist.styles";
+import { MenuButton } from "../MenuButton";
 import { useTheme } from "@mui/material/styles";
+import { useAppSelector } from "../common/hooks/useAppSelector";
+import { useAppDispatch } from "../common/hooks/useAppDispatch";
+import { selectTodolists } from "../model/todolists-selectors";
 
 export type FilterValueType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -38,16 +41,16 @@ export type TaskStateType = {
   [key: string]: Array<TaskType>;
 };
 
+
+
 function AppWithRedux() {
-  const [switchTheme, setSwitchTheme] = useState<boolean>(false)
+  const [switchTheme, setSwitchTheme] = useState<boolean>(false);
   console.log("App");
 
-  const dispatch = useDispatch();
-  const theme = useTheme<Theme>()
-
-  const todoLists = useSelector<AppRootState, TodolistType[]>(
-    (state) => state.todoList
-  );
+  const dispatch = useAppDispatch(); // useDispatch
+  const theme = useTheme<Theme>();
+  // useSelect
+  const todoLists = useAppSelector(selectTodolists);
 
   const changeTodoListTitle = useCallback(
     (newTitle: string, todolistId: string) => {
@@ -82,12 +85,12 @@ function AppWithRedux() {
   );
 
   const switchThemeFunction = () => {
-         setSwitchTheme(prev => !prev)
-  }
+    setSwitchTheme((prev) => !prev);
+  };
 
-  const mainColor = theme.palette.extra.extra7
-  const mainColorBlack = theme.palette.extra.extra3
-  const mainColorWhite = theme.palette.extra.extra8
+  const mainColor = theme.palette.extra.extra7;
+  // const mainColorBlack = theme.palette.extra.extra3;
+  // const mainColorWhite = theme.palette.extra.extra8;
 
   return (
     <div className="App">
@@ -99,11 +102,23 @@ function AppWithRedux() {
           <Typography variant="h6" component="div" sx={typographyStyle}>
             News
           </Typography>
-          <div style={{display: "flex", gap: "10px"}}>
-            <MenuButton color={switchTheme ? "primary" : "warning"} background={!switchTheme ? mainColor : "#00BCD4"}>LogOut</MenuButton>
-            <MenuButton  background={!switchTheme ? mainColor : "#00BCD4"}>LogIn</MenuButton>
-            <MenuButton  background={!switchTheme ? mainColor : "#00BCD4"}>FAQ</MenuButton>
-            <Switch color={switchTheme ? "secondary" : "info"} onClick={switchThemeFunction}></Switch>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <MenuButton
+              color={switchTheme ? "primary" : "warning"}
+              background={!switchTheme ? mainColor : "#00BCD4"}
+            >
+              LogOut
+            </MenuButton>
+            <MenuButton background={!switchTheme ? mainColor : "#00BCD4"}>
+              LogIn
+            </MenuButton>
+            <MenuButton background={!switchTheme ? mainColor : "#00BCD4"}>
+              FAQ
+            </MenuButton>
+            <Switch
+              color={switchTheme ? "secondary" : "info"}
+              onClick={switchThemeFunction}
+            ></Switch>
           </div>
 
           {/* <Brightness6Outlined >

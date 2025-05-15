@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-import { AddItemFormMemo } from "./AddItemForm";
+import { AddItemFormMemo } from "./model/AddItemForm";
 import { EditableSpunMemo } from "./EditableSpun";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import s from "./Todolist.module.css";
 import { useDispatch } from "react-redux";
-import { addTaskAC } from "./state/tasks-reducer";
-import { FilterValueType } from "./AppWithRedux";
+import { addTaskAC } from "./model/tasks-reducer";
+import { FilterValueType } from "./app/AppWithRedux";
 import React from "react";
 import { Tasks } from "./Tasks";
 
@@ -102,6 +102,4 @@ export const TodoList = React.memo((props: PropsType) => {
       </div>
     </div>
   );
-})
-
-
+});

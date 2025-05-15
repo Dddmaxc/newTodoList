@@ -1,4 +1,4 @@
-import { TaskStateType } from "../AppWithRedux";
+import { TaskStateType } from "../app/AppWithRedux";
 import { v1 } from "uuid";
 import {
   AddTodoListActionType,
