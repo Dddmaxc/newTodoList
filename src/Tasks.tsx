@@ -1,37 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
-import { TaskType } from "./TodoList";
-import { RootState } from "./app/store";
-import {
-  changeStatusTaskAC,
-  changeTitleTaskAC,
-  removeTaskAC,
-} from "./model/tasks-reducer";
 import { ChangeEvent } from "react";
 import s from "./Todolist.module.css";
 import { pink } from "@mui/material/colors";
-import { EditableSpunMemo } from "./EditableSpun";
+import { EditableSpun } from "./EditableSpun";
 import { Checkbox, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import React from "react";
 import { useAppSelector } from "./common/hooks/useAppSelector";
 import { useAppDispatch } from "./common/hooks/useAppDispatch";
-import { TaskStateType } from "./app/AppWithRedux";
 import { selectTasks } from "./model/tasks-selectors";
+
+import {
+  changeStatusTaskS,
+  changeTitleTaskS,
+  removeTaskS,
+} from "./model/tasks-reducerCopy";
 
 type TaskPropsType = {
   filter: string;
   id: string;
 };
 
-
-
-export const Tasks = React.memo(({ filter, id }: TaskPropsType) => {
-  //useDispatch
+export const Tasks = ({ filter, id }: TaskPropsType) => {
   const dispatch = useAppDispatch();
-// useSelect
-  const tasks = useAppSelector(
-   selectTasks
-  );
+  const tasks = useAppSelector(selectTasks);
 
   let tasksForTodoList = tasks[id];
   if (filter === "completed") {
@@ -45,15 +35,27 @@ export const Tasks = React.memo(({ filter, id }: TaskPropsType) => {
     <>
       {tasksForTodoList.map((t) => {
         const onRemoveHandler = () => {
-          dispatch(removeTaskAC(t.id, id));
+          dispatch(removeTaskS({ taskId: t.id, todolistId: id }));
         };
 
         const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-          let newIsDoneValue = e.currentTarget.checked;
-          dispatch(changeStatusTaskAC(id, t.id, newIsDoneValue));
+          dispatch(
+            changeStatusTaskS({
+              todolistId: id,
+              taskId: t.id,
+              isDone: e.currentTarget.checked,
+            })
+          );
         };
+
         const onChangeTitleHandler = (newValue: string) => {
-          dispatch(changeTitleTaskAC(id, t.id, newValue));
+          dispatch(
+            changeTitleTaskS({
+              todolistId: id,
+              taskId: t.id,
+              title: newValue,
+            })
+          );
         };
 
         return (
@@ -70,10 +72,7 @@ export const Tasks = React.memo(({ filter, id }: TaskPropsType) => {
                 onChange={onChangeStatusHandler}
                 checked={t.isDone}
               />
-              <EditableSpunMemo
-                title={t.title}
-                onChange={onChangeTitleHandler}
-              />
+              <EditableSpun title={t.title} onChange={onChangeTitleHandler} />
               <IconButton
                 onClick={onRemoveHandler}
                 aria-label={"delete"}
@@ -87,4 +86,4 @@ export const Tasks = React.memo(({ filter, id }: TaskPropsType) => {
       })}
     </>
   );
-});
+};

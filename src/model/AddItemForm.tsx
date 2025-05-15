@@ -13,24 +13,18 @@ export const AddItemForm = ({ addItem }: AddItemFormPropsType) => {
   let [newTaskTitle, setNewTaskTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
-  const onNewTitleOnChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setNewTaskTitle(e.currentTarget.value);
-    },
-    []
-  );
+  const onNewTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTaskTitle(e.currentTarget.value);
+  }
 
-  const onKeyDownHandler = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      setError(null);
-      if (e.key === "Enter") {
-        addTaskHandler();
-      }
-    },
-    [newTaskTitle]
-  );
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    setError(null);
+    if (e.key === "Enter") {
+      addTaskHandler();
+    }
+  };
 
-  const addTaskHandler = useCallback(() => {
+  const addTaskHandler = () => {
     const trimmedTitle = newTaskTitle.trim();
     if (trimmedTitle) {
       addItem(trimmedTitle);
@@ -39,7 +33,7 @@ export const AddItemForm = ({ addItem }: AddItemFormPropsType) => {
     } else {
       setError("Title is required");
     }
-  }, [addItem, newTaskTitle]);
+  }
 
   return (
     <>
@@ -63,4 +57,4 @@ export const AddItemForm = ({ addItem }: AddItemFormPropsType) => {
   );
 };
 
-export const AddItemFormMemo = React.memo(AddItemForm);
+

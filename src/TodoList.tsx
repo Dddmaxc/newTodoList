@@ -1,14 +1,12 @@
-import { useCallback } from "react";
-import { AddItemFormMemo } from "./model/AddItemForm";
-import { EditableSpunMemo } from "./EditableSpun";
+import { AddItemForm } from "./model/AddItemForm";
+import { EditableSpun } from "./EditableSpun";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import s from "./Todolist.module.css";
-import { useDispatch } from "react-redux";
-import { addTaskAC } from "./model/tasks-reducer";
 import { FilterValueType } from "./app/AppWithRedux";
-import React from "react";
 import { Tasks } from "./Tasks";
+import { useAppDispatch } from "./common/hooks/useAppDispatch";
+import { addTaskS } from "./model/tasks-reducerCopy";
 
 export type TaskType = {
   id: string;
@@ -25,46 +23,34 @@ export type PropsType = {
   id: string;
 };
 
-export const TodoList = React.memo((props: PropsType) => {
+export const TodoList = (props: PropsType) => {
   console.log("TodoList");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onAllClickHandler = useCallback(
-    () => props.changeFilter("all", props.id),
-    [props.changeFilter, props.id]
-  );
-  const onActiveClickHandler = useCallback(
-    () => props.changeFilter("active", props.id),
-    [props.changeFilter, props.id]
-  );
-  const onCompletedClickHandler = useCallback(
-    () => props.changeFilter("completed", props.id),
-    [props.changeFilter, props.id]
-  );
+  const onAllClickHandler = () => props.changeFilter("all", props.id);
 
-  const removeTodoList = useCallback(() => {
+  const onActiveClickHandler = () => props.changeFilter("active", props.id);
+
+  const onCompletedClickHandler = () =>
+    props.changeFilter("completed", props.id);
+
+  const removeTodoList = () => {
     props.removeTodoList(props.id);
-  }, [props.removeTodoList, props.id]);
+  };
 
-  const AddTask = useCallback(
-    (title: string) => {
-      dispatch(addTaskAC(props.id, title));
-    },
-    [dispatch, props.id]
-  );
+  const AddTask = (title: string) => {
+    dispatch(addTaskS({ todolistId: props.id, title: title }));
+  };
 
-  const changeTodoListTitle = useCallback(
-    (newTitle: string) => {
-      props.changeTodoListTitle(newTitle, props.id);
-    },
-    [props.changeTodoListTitle, props.id]
-  );
+  const changeTodoListTitle = (newTitle: string) => {
+    props.changeTodoListTitle(newTitle, props.id);
+  };
 
   return (
     <div className={s.containet}>
       <h3>
-        <EditableSpunMemo title={props.title} onChange={changeTodoListTitle} />
+        <EditableSpun title={props.title} onChange={changeTodoListTitle} />
         <IconButton
           onClick={removeTodoList}
           aria-label={"delete"}
@@ -73,7 +59,7 @@ export const TodoList = React.memo((props: PropsType) => {
           <Delete />
         </IconButton>
       </h3>
-      <AddItemFormMemo addItem={AddTask} />
+      <AddItemForm addItem={AddTask} />
       <div>
         <Tasks filter={props.filter} id={props.id} />
       </div>
@@ -102,4 +88,4 @@ export const TodoList = React.memo((props: PropsType) => {
       </div>
     </div>
   );
-});
+};
