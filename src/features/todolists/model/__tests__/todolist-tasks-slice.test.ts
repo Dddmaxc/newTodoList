@@ -1,7 +1,5 @@
-import { TasksState, Todolist } from "../app/App";
-import tasksReducer from "./tasks-slice";
-import todolistsReducer, { createTodolistS } from "./todolist-slice";
-
+import tasksReducer, { TasksState } from "../tasks-slice";
+import todolistsReducer, { createTodolistS, Todolist } from "../todolist-slice";
 
 test("generated ID should be the same in both reducers", () => {
   const startTasksState: TasksState = {};

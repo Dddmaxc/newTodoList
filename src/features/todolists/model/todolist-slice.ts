@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FilterValues, Todolist } from "../app/App";
 
-
+export type FilterValues = "all" | "active" | "completed";
+export type Todolist = {
+  id: string;
+  title: string;
+  filter: FilterValues;
+};
 const initialState: Array<Todolist> = [];
 
 const todolistSlice = createSlice({
@@ -16,15 +20,14 @@ const todolistSlice = createSlice({
         state.splice(index, 1);
       }
     },
-    
+
     createTodolistS(
       state,
       action: PayloadAction<{
         todolistid: string;
         title: string;
       }>
-    ) { 
-
+    ) {
       const newTodoList: Todolist = {
         id: action.payload.todolistid,
         title: action.payload.title,

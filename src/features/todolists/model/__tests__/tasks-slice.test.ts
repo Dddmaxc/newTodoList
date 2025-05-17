@@ -1,12 +1,12 @@
 import { v1 } from "uuid";
-import { TasksState } from "../app/App";
 import tasksReducer, {
   createTaskS,
   changeTaskStatusS,
   changeTaskTitleS,
   deleteTaskS,
-} from "./tasks-slice";
-import { createTodolistS, deleteTodolistS } from "./todolist-slice";
+  TasksState,
+} from "../tasks-slice";
+import { createTodolistS, deleteTodolistS } from "../todolist-slice";
 
 let startState: TasksState;
 

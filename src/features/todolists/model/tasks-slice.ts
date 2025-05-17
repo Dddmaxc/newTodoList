@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TasksState } from "../app/App";
 import { v1 } from "uuid";
 import { createTodolistS, deleteTodolistS } from "./todolist-slice";
+
+export type TasksState = Record<string, Array<Task>>;
+export type Task = {
+  id: string;
+  title: string;
+  isDone: boolean;
+};
 
 const initialState: TasksState = {};
 

@@ -1,7 +1,7 @@
 {
   "name": "todolist-10",
   "private": true,
-  "homepage": "https://Dddmaxc.github.io/newTodoList",
+  "homepage": " https://dddmaxc.github.io/newTodoList/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "vitest",
     "preview": "vite preview",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -32,7 +32,7 @@
     "@vitejs/plugin-react-swc": "3.7.2",
     "globals": "15.14.0",
     "typescript": "5.7.2",
-    "vite": "6.0.6",
+    "vite": "^6.3.5",
     "vitest": "2.1.8"
   }
 }

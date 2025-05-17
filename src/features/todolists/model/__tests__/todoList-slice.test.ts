@@ -4,8 +4,9 @@ import todolistReducer, {
   deleteTodolistS,
   changeTodolistTitleS,
   changeTodolistFilterS,
-} from "./todolist-slice";
-import { FilterValues, Todolist } from "../app/App";
+  Todolist,
+  FilterValues,
+} from "../todolist-slice";
 
 test("correct todolist should be removed", () => {
   let todolistId1 = v1();
