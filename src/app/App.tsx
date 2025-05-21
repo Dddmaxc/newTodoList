@@ -6,6 +6,7 @@ import { CssBaseline } from "@mui/material";
 import { getTheme } from "@/common/theme/theme";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { selectThemeMode } from "./app-selectors";
+import { AppHttpRequests } from "./AppHttpRequests";
 
 export const App = () => {
   const switchTheme = useAppSelector(selectThemeMode);
@@ -13,9 +14,10 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className={"app"}>
-        <CssBaseline />
+        {/* <CssBaseline />
         <Header />
-        <Main />
+        <Main /> */}
+         <AppHttpRequests />
       </div>
     </ThemeProvider>
   );
