@@ -6,8 +6,6 @@ import {
 } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { CreateItemForm, EditableSpan } from "@/common/components";
-import axios from "axios";
-import { instance } from "@/common/components/instance/instance";
 import { Todolist } from "@/features/todolists/api/todolistsApi.types";
 import { todolistsApi } from "@/features/todolists/api/todolistsApi";
 

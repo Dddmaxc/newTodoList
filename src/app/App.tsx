@@ -1,8 +1,5 @@
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles";
-import { Header } from "@/common/components/Header/Header";
-import { Main } from "./Main";
-import { CssBaseline } from "@mui/material";
 import { getTheme } from "@/common/theme/theme";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { selectThemeMode } from "./app-selectors";
