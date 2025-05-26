@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material";
-import { SwitchTheme } from "../../app/appSlice";
+import { createTheme } from "@mui/material"
+import { SwitchTheme } from "../../app/appSlice"
 
 export const getTheme = (switchTheme: SwitchTheme) => {
   return createTheme({
@@ -7,5 +7,5 @@ export const getTheme = (switchTheme: SwitchTheme) => {
       mode: switchTheme,
       primary: { main: "#00c5fc" },
     },
-  });
-};
+  })
+}

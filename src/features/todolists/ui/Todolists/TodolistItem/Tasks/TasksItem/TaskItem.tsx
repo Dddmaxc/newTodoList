@@ -1,28 +1,23 @@
-import { Checkbox, IconButton, ListItem } from "@mui/material";
-import { EditableSpan } from "../../../../../../../common/components/EditableSpan/EditableSpan";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppDispatch } from "../../../../../../../common/hooks/useAppDispatch";
-import {
-  changeTaskStatusS,
-  changeTaskTitleS,
-  deleteTaskS,
-  Task,
-} from "../../../../../model/tasks-slice";
-import { ChangeEvent } from "react";
-import { getListItemSx } from "./tasksItem.style";
+import { Checkbox, IconButton, ListItem } from "@mui/material"
+import { EditableSpan } from "../../../../../../../common/components/EditableSpan/EditableSpan"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { useAppDispatch } from "../../../../../../../common/hooks/useAppDispatch"
+import { changeTaskStatusS, changeTaskTitleS, deleteTaskS, Task } from "../../../../../model/tasks-slice"
+import { ChangeEvent } from "react"
+import { getListItemSx } from "./tasksItem.style"
 
 type Props = {
-  task: Task;
-  todolistId: string;
-};
+  task: Task
+  todolistId: string
+}
 
 export const TaskItem = ({ task, todolistId }: Props) => {
   // useDispatch
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const deleteTask = () => {
-    dispatch(deleteTaskS({ todolistId, taskId: task.id }));
-  };
+    dispatch(deleteTaskS({ todolistId, taskId: task.id }))
+  }
 
   const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -30,13 +25,13 @@ export const TaskItem = ({ task, todolistId }: Props) => {
         todolistId,
         taskId: task.id,
         isDone: e.currentTarget.checked,
-      })
-    );
-  };
+      }),
+    )
+  }
 
   const changeTaskTitle = (title: string) => {
-    dispatch(changeTaskTitleS({ todolistId, taskId: task.id, title }));
-  };
+    dispatch(changeTaskTitleS({ todolistId, taskId: task.id, title }))
+  }
 
   return (
     <>
@@ -50,5 +45,5 @@ export const TaskItem = ({ task, todolistId }: Props) => {
         </IconButton>
       </ListItem>
     </>
-  );
-};
+  )
+}

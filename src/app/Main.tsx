@@ -1,20 +1,20 @@
-import { CreateItemForm } from "@/common/components/CreateItemForm/CreateItemForm";
-import Container from "@mui/material/Container";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { createTodolistS } from "@/features/todolists/model/todolist-slice";
-import { v1 } from "uuid";
-import { Todolist } from "@/features/todolists/ui/Todolists/Todolists";
-import Grid from "@mui/material/Grid2";
+import { CreateItemForm } from "@/common/components/CreateItemForm/CreateItemForm"
+import Container from "@mui/material/Container"
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
+import { createTodolistS } from "@/features/todolists/model/todolist-slice"
+import { v1 } from "uuid"
+import { Todolist } from "@/features/todolists/ui/Todolists/Todolists"
+import Grid from "@mui/material/Grid2"
 
 export const Main = () => {
   // useDispatch
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   // get theme
 
   // Functions for todolist and tasks
   const createTodolist = (title: string) => {
-    dispatch(createTodolistS({ todolistid: v1(), title }));
-  };
+    dispatch(createTodolistS({ todolistid: v1(), title }))
+  }
 
   return (
     <>
@@ -27,5 +27,5 @@ export const Main = () => {
         </Grid>
       </Container>
     </>
-  );
-};
+  )
+}

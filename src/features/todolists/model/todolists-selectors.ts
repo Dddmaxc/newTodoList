@@ -1,5 +1,4 @@
-import { RootState } from "@/app/store";
-import { Todolist } from "./todolist-slice";
+import { RootState } from "@/app/store"
+import { Todolist } from "./todolist-slice"
 
-export const selectTodolists = (state: RootState): Array<Todolist> =>
-  state.todolists;
+export const selectTodolists = (state: RootState): Array<Todolist> => state.todolists

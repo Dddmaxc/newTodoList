@@ -1,12 +1,12 @@
-import Grid from "@mui/material/Grid2";
-import Paper from "@mui/material/Paper";
-import { TodolistItem } from "./TodolistItem/TodolistItem";
-import { useAppSelector } from "../../../../common/hooks/useAppSelector";
-import { selectTodolists } from "../../model/todolists-selectors";
+import Grid from "@mui/material/Grid2"
+import Paper from "@mui/material/Paper"
+import { TodolistItem } from "./TodolistItem/TodolistItem"
+import { useAppSelector } from "../../../../common/hooks/useAppSelector"
+import { selectTodolists } from "../../model/todolists-selectors"
 
 export const Todolist = () => {
   // useSelectors
-  const todolists = useAppSelector(selectTodolists);
+  const todolists = useAppSelector(selectTodolists)
 
   return (
     <>
@@ -17,8 +17,8 @@ export const Todolist = () => {
               <TodolistItem todolist={todolist} />
             </Paper>
           </Grid>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}

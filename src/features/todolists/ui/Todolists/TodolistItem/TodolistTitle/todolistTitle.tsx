@@ -1,30 +1,26 @@
-import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan";
-import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  changeTodolistTitleS,
-  deleteTodolistS,
-  Todolist,
-} from "@/features/todolists/model//todolist-slice";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
+import { IconButton } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { changeTodolistTitleS, deleteTodolistS, Todolist } from "@/features/todolists/model//todolist-slice"
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
 import s from "./todolistTitle.module.css"
 
 type PropsTodolistTitleType = {
-  todolist: Todolist;
-};
+  todolist: Todolist
+}
 
 export const TodolistTitle = ({ todolist }: PropsTodolistTitleType) => {
-  const { id, title } = todolist;
+  const { id, title } = todolist
   // useDispatch
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const deleteTodolist = () => {
-    dispatch(deleteTodolistS({ todolistId: id }));
-  };
+    dispatch(deleteTodolistS({ todolistId: id }))
+  }
 
   const changeTodolistTitle = (title: string) => {
-    dispatch(changeTodolistTitleS({ todolistId: id, title }));
-  };
+    dispatch(changeTodolistTitleS({ todolistId: id, title }))
+  }
 
   return (
     <>
@@ -37,5 +33,5 @@ export const TodolistTitle = ({ todolist }: PropsTodolistTitleType) => {
         </IconButton>
       </div>
     </>
-  );
-};
+  )
+}
