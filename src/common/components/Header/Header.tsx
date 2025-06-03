@@ -5,11 +5,10 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { NavButton } from "../NavButton/NavButton"
 import Switch from "@mui/material/Switch"
 import { Container } from "@mui/material"
-import { toggleTheme } from "../../../app/appSlice"
+import { selectThemeMode, toggleTheme } from "../../../app/appSlice"
 import { useAppDispatch } from "../../hooks/useAppDispatch"
 import { getTheme } from "../../theme/theme"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { selectThemeMode } from "../../../app/app-selectors"
 import { containerSx } from "@/common/styles/container.styles"
 
 export const Header = () => {

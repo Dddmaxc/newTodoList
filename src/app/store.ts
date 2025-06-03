@@ -7,7 +7,7 @@ import appSlice from "./appSlice"
 const rootReducer = combineReducers({
   tasks: tasksSlice,
   todolists: todolistSlice,
-  app: appSlice,
+  appSlice: appSlice,
 })
 
 // создание store

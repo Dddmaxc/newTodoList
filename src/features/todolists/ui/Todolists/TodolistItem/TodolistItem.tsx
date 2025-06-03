@@ -1,13 +1,13 @@
 import { CreateItemForm } from "../../../../../common/components/CreateItemForm/CreateItemForm"
-import { Todolist } from "../../../model/todolist-slice"
 import { createTaskS } from "../../../model/tasks-slice"
 import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch"
 import { TodolistTitle } from "./TodolistTitle/todolistTitle"
 import { Tasks } from "./Tasks/Tasks"
 import { FilterButtons } from "./FilterButtons/FilterButtons"
+import { DomainTodolist } from "@/features/todolists/model/todolist-slice"
 
 type Props = {
-  todolist: Todolist
+  todolist: DomainTodolist
 }
 
 export const TodolistItem = ({ todolist }: Props) => {

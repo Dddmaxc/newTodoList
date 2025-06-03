@@ -2,8 +2,10 @@ import "./App.css"
 import { ThemeProvider } from "@mui/material/styles"
 import { getTheme } from "@/common/theme/theme"
 import { useAppSelector } from "@/common/hooks/useAppSelector"
-import { selectThemeMode } from "./app-selectors"
-import { AppHttpRequests } from "./AppHttpRequests"
+import { CssBaseline } from "@mui/material"
+import { Header } from "@/common/components"
+import { Main } from "./Main"
+import { selectThemeMode } from "./appSlice"
 
 export const App = () => {
   const switchTheme = useAppSelector(selectThemeMode)
@@ -11,10 +13,9 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className={"app"}>
-        {/* <CssBaseline />
+        <CssBaseline />
         <Header />
-        <Main /> */}
-        <AppHttpRequests />
+        <Main />
       </div>
     </ThemeProvider>
   )

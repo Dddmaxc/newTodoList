@@ -1,19 +1,18 @@
 import { List } from "@mui/material"
 import { useAppSelector } from "../../../../../../common/hooks/useAppSelector"
-import { selectTasks } from "../../../../model/tasks-selectors"
-import { Todolist } from "../../../../model/todolist-slice"
+import { DomainTodolist } from "../../../../model/todolist-slice"
 
 import { TaskItem } from "./TasksItem/TaskItem"
 
 type Props = {
-  todolist: Todolist
+  todolist: DomainTodolist
 }
 
 export const Tasks = ({ todolist }: Props) => {
   // props
   const { id, filter } = todolist
   // useSelector
-  const tasks = useAppSelector(selectTasks)
+  const tasks = useAppSelector((state) => state.tasks)
 
   // filter for buttons: all, active, completed
   const todolistTasks = tasks[id] || []
@@ -25,13 +24,13 @@ export const Tasks = ({ todolist }: Props) => {
     filteredTasks = todolistTasks.filter((task) => task.isDone)
   }
 
-  if (filteredTasks.length === 0) {
+  if (filteredTasks?.length === 0) {
     return <p>Тасок нет</p>
   }
 
   return (
     <List>
-      {filteredTasks.map((task) => {
+      {filteredTasks?.map((task) => {
         return <TaskItem todolistId={id} task={task} key={task.id} />
       })}
     </List>

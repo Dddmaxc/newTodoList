@@ -13,7 +13,7 @@ export const Main = () => {
 
   // Functions for todolist and tasks
   const createTodolist = (title: string) => {
-    dispatch(createTodolistS({ todolistid: v1(), title }))
+    dispatch(createTodolistS( title ))
   }
 
   return (
